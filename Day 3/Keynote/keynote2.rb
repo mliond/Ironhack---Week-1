@@ -22,7 +22,7 @@ class Presenter
 
   def create_empty_lines
     i = 1
-    num = (TermInfo.screen_size[0] / 2) - 1
+    num = 12
       while i < num  do
         puts""
         i +=1
@@ -30,7 +30,7 @@ class Presenter
   end
 
   def create_center_line
-    @slide_text[@slide_number].center(TermInfo.screen_size[1], " ")
+    @slide_text[@slide_number].center(80, " ")
   end
 
   def create_a_slide
@@ -42,7 +42,7 @@ class Presenter
   end
 
   def change_slide_number
-    sleep 1
+    sleep 3
 
     #length is supposed to count the number of items in the array
     if @slide_number < @slide_text.count
@@ -59,5 +59,3 @@ slide_text = DBOperations.new.read_text_from_file
 presentation = Presenter.new(slide_text)
 
 presentation.create_a_slide
-
-p TermInfo.screen_size
