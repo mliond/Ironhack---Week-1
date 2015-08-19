@@ -1,35 +1,38 @@
-class Input
+class Login
 
-	def prompt_username
+	def prompt_access
 		puts "username:"
-		username = gets.chomp
-	end
-
-	def prompt_password
+		@username = gets.chomp.to_s
 		puts "password:"
-		password = gets.chomp
+		@password = gets.chomp.to_s
+		evaluate_username
 	end
-
+	
 	def evaluate_username
-		if username.upcase == "test".upcase && password.upcase == "abcd".upcase
+		if @username.upcase == "test".upcase && @password.upcase == "abcd".upcase
 			puts "correct username & password"
-			# go on to other method
+			WordCounter.new.prompt_text
 		else 
 			puts "wrong username / password"
 		end
 	end
+
 end
+
 
 class WordCounter
 
 	def prompt_text
 		puts "Please enter your text to have the program count the words:"
-		text = gets.chomp
+		@text = gets.chomp
+		self.count_words_in_text
 	end
 
 	def count_words_in_text
-		puts text.split.size
+		puts "Number of words: #{@text.split.size}"
 	end
 
 end
 
+login = Login.new
+login.prompt_access 
