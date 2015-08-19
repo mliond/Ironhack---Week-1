@@ -1,12 +1,5 @@
 require 'terminfo'
 
-# class ReadInfo
-#   def read_from_slides_file
-#     puts File.open("slides.txt", "w") { |io|  }
-# end
-# end
-
-
 class DBOperations
   attr_accessor :slide_text
 
@@ -24,32 +17,52 @@ class ShowTime
 
   def initialize(slide_text)
     @slide_text = slide_text
+    @slide_number = 0
   end
 
-  def print_spaces
+  def change_slide_number(item)
+    @slide_number = @slide_number + item
+    create_a_slide
+  end
+
+  def create_empty_lines
     i = 1
-    num = 12
+    num = 11
       while i < num  do
       puts""
       i +=1
       end
   end
 
-  def create_all_slides_array
-    all_of_the_slides_array = create_all_slides
-    puts all_of_the_slides_array
+  def create_center_line
+    # @empty_spaces = (80 - @slide_text[0].length) / 2
+    text = @slide_text[@slide_number]
+    @centered_line = text.center(80, " ")
   end
 
-  def create_all_slides
-    @slide_text.each do |1|
-      print_spaces
-      puts @slide_text[1]
-      print_spaces
+  def create_a_slide
+    puts create_empty_lines
+    puts create_center_line
+    puts create_empty_lines
+    prompt_for_command
+  end
+
+  def prompt_for_command
+    puts @slide_number + 1
+    @next_or_previous = gets.chomp.upcase
+    evaluate_prompt_for_command
+  end
+
+  def evaluate_prompt_for_command
+    if @next_or_previous == "next".upcase
+      change_slide_number(1)
+    elsif @next_or_previous == "previous".upcase
+      change_slide_number(-1)
+    else
+      puts "error0"
     end
   end
 
-    def show_slide
-    end
 
 end
 
@@ -57,4 +70,4 @@ my_db = DBOperations.new
 slide_text = my_db.read_text_from_file
 
 my_showtime = ShowTime.new(slide_text)
-my_showtime.create_all_slides_array
+my_showtime.create_a_slide
