@@ -22,7 +22,7 @@ class SlideBuilder
 
   def create_empty_lines
     i = 1
-    num = 11
+    num = 12
       while i < num  do
         puts""
         i +=1
@@ -39,18 +39,6 @@ class SlideBuilder
     puts create_center_line
     puts create_empty_lines
     print @slide_number + 1
-  end
-
-end
-
-class Presenter
-  def initialize(finished_slide)
-    @finished_slide = finished_slide
-    @slide_number = 0
-  end
-
-  def show_the_slide
-    puts @finished_slide
     prompt_for_command
   end
 
@@ -73,13 +61,7 @@ class Presenter
   end
 end
 
-text_array = DBOperations.new
-each_slide = SlideBuilder.new(text_array, 0)
-my_presenter = Presenter.new(each_slide)
+slide_text = DBOperations.new.read_text_from_file
+presentation = ShowTime.new(slide_text)
 
-text_array.read_text_from_file
-each_slide.create_a_slide
-
-
-
-my_presenter.show_the_slide
+presentation.create_a_slide
