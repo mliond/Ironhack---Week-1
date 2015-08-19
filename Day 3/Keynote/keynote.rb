@@ -14,7 +14,6 @@ class DBOperations
 end
 
 class Presenter
-
   def initialize(slide_text)
     @slide_text = slide_text
     @slide_number = 0
@@ -22,21 +21,29 @@ class Presenter
 
   def create_empty_lines
     i = 1
-    num = (TermInfo.screen_size[0] / 2) - 1
-      while i < num  do
+    num = ((TermInfo.screen_size[0] - @slide_text[@slide_number].lines.count) / 2) - 2
+
+      while i <= num  do
         puts""
         i +=1
       end
   end
 
   def create_center_line
-    @slide_text[@slide_number].center(TermInfo.screen_size[1], " ")
+    i = 0
+    num = @slide_text[@slide_number].lines.count - 1
+
+    while i <= num do
+      puts @slide_text[@slide_number].lines[i].center(TermInfo.screen_size[1])
+      i = i + 1
+    end
+
   end
 
   def create_a_slide
     # I can't get rid of the puts somehow
     puts create_empty_lines
-    puts create_center_line
+    create_center_line
     puts create_empty_lines
     change_slide_number
   end
@@ -59,5 +66,3 @@ slide_text = DBOperations.new.read_text_from_file
 presentation = Presenter.new(slide_text)
 
 presentation.create_a_slide
-
-p TermInfo.screen_size
