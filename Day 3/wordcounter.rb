@@ -16,6 +16,7 @@ class CorrectAccessData
 		end
 	end
 
+	private
 	def read_correct_user_and_password_from_file
 		read_data = IO.read("access_data.txt").to_s
 		@correct_username = read_data.split.first
@@ -41,6 +42,7 @@ class Login
 		evaluate_username
 	end
 
+	private 
 	def evaluate_username
 		if @username.upcase == @access_data.correct_username.upcase && @password.upcase == @access_data.correct_password.upcase
 			puts "correct username & password"
@@ -66,7 +68,7 @@ class WordCounter
 
 end
 
-#Put file or hardcode to switch methods 
+#Put "file" or "hardcode" to switch methods 
 my_correct_access_data = CorrectAccessData.new("file")
 my_correct_access_data.get_correct_access_data
 

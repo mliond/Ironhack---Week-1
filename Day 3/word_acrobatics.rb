@@ -16,7 +16,7 @@ class WordAcrobatics
 	def evaluate_choice
 
 		if (@user_choice == "a".upcase)||(@user_choice == "count words".upcase)
-			@final_text = @text.split.size
+			@final_text = @final_text.split.size
 		elsif (@user_choice == "b".upcase)||(@user_choice == "count letters".upcase)
 			@final_text = @text.delete(" ").length
 		elsif (@user_choice == "c".upcase)||(@user_choice == "reverse the text".upcase)
