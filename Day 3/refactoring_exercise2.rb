@@ -7,8 +7,8 @@ class Car
 end
 
 class DB
-  def save(variable)
-    DB.sql("MESSAGE #{variable.speed}")
+  def save(car)
+    DB.sql("MESSAGE #{car.speed}")
   end
 end
 
