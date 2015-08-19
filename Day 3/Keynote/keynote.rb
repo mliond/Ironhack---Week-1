@@ -13,11 +13,11 @@ class DBOperations
     end
 end
 
-class SlideBuilder
+class Presenter
 
-  def initialize(slide_text, slide_number)
+  def initialize(slide_text)
     @slide_text = slide_text
-    @slide_number = slide_number
+    @slide_number = 0
   end
 
   def create_empty_lines
@@ -38,7 +38,7 @@ class SlideBuilder
     puts create_empty_lines
     puts create_center_line
     puts create_empty_lines
-    print @slide_number + 1
+    puts @slide_number + 1
     prompt_for_command
   end
 
@@ -57,11 +57,11 @@ class SlideBuilder
 
   def change_slide_number(change)
     @slide_number = @slide_number + change
-    return @slide_number
+    create_a_slide
   end
 end
 
 slide_text = DBOperations.new.read_text_from_file
-presentation = ShowTime.new(slide_text)
+presentation = Presenter.new(slide_text)
 
 presentation.create_a_slide
