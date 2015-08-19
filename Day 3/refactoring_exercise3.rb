@@ -5,17 +5,21 @@ case output
     write_log
   when :message_queue
     put_queue
-  when :json_endpoint 
-    http_post
+  when :json_endpoint
+    HTTP.http_post
   when :logstash
     add_logstash
   when :logwatcher
     new_logstash
 end
 
-def http_post
-  HTTP.post(text)
+class HTTP
+  def self.http_post(text)
+    self.post(text)
+  end
 end
+
+# ...
 
 def write_log
   IO.write("log.log", text)
