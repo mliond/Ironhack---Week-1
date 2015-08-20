@@ -1,4 +1,3 @@
-require 'awesome_print'
 require 'rubygems'
 require 'imdb'
 require 'pry'
@@ -11,8 +10,7 @@ class TextReader
   end
 
   def turn_into_arr
-    movies_arr = @movies_txt.split("\n").to_a
-    movies_arr
+    @movies_txt.split("\n").to_a
   end
 end
 
@@ -22,15 +20,12 @@ class LookOnImdb
   end
 
   def look_for_rating
-    @ratings_arr = @movies_arr.map do |n|
-      i = Imdb::Search.new(n).movies[0].rating
-    end
+    @ratings_arr = @movies_arr.map {|n| Imdb::Search.new(n).movies[0].rating}
     round_ratings
   end
 
   def round_ratings
-    @rounded_ratings = @ratings_arr.map {|rating| rating.to_i.round }
-    @rounded_ratings
+    @ratings_arr.map {|rating| rating.to_i.round}
   end
 end
 
@@ -40,14 +35,39 @@ class LayoutBuilder
     @ratings_arr = ratings_arr
   end
 
-  def build_ratings
-	  @ratings_arr.each do |n|
-    	puts "|" + "#|\n" * n
+  def build_ratings_horizontally
+	  @ratings_arr.each_with_index do |rating, index|
+    	number_hashes = "#|" * rating
+    	number_empty_spaces = " |" * (10 - rating)
+    	puts "|#{index + 1}| |#{number_hashes}#{number_empty_spaces}"
     end
   end
 
+	# Works, but only looks good if the ratings go down (which I can't make work)
+	  # def build_number_of_movies
+	  # 	@string = "|"
+	  # 	@ratings_arr.each_index do |position|
+	  # 		@string += "#{position + 1}|"
+	  # 	end
+	  # 	@string
+	  # end
+
+  def build_dashes
+		puts "-" * 25
+	end
+
+  def build_list_of_movies
+		@movies_arr.each_with_index {|title, index| puts "#{index + 1}. #{title}"}
+	end
+
+	def build_layout
+		build_ratings_horizontally
+		# puts build_number_of_movies
+		build_dashes
+		build_list_of_movies
+	end
 end
 
 movies_arr = TextReader.new.read_from_file
 ratings_arr = LookOnImdb.new(movies_arr).look_for_rating
-LayoutBuilder.new(movies_arr, ratings_arr).build_ratings
+LayoutBuilder.new(movies_arr, ratings_arr).build_layout
