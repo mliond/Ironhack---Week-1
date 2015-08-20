@@ -35,25 +35,30 @@ class LayoutBuilder
     @ratings_arr = ratings_arr
   end
 
-  def build_ratings_horizontally
-	  @ratings_arr.each_with_index do |rating, index|
-    	number_hashes = "#|" * rating
-    	number_empty_spaces = " |" * (10 - rating)
-    	puts "|#{index + 1}| |#{number_hashes}#{number_empty_spaces}"
-    end
+  def build_ratings_vertically
+		10.downto(1) do |i|
+		print "|"
+		@ratings_arr.each do |rating|
+			if rating >= i
+				print "#|"
+			else
+				print " |"
+			end
+			end
+			puts ""
+		end
+	end
+
+  def build_number_of_movies
+  	@string = "|"
+  	@ratings_arr.each_index do |position|
+  		@string += "#{position + 1}|"
+  	end
+  	@string
   end
 
-	# Works, but only looks good if the ratings go down (which I can't make work)
-	  # def build_number_of_movies
-	  # 	@string = "|"
-	  # 	@ratings_arr.each_index do |position|
-	  # 		@string += "#{position + 1}|"
-	  # 	end
-	  # 	@string
-	  # end
-
   def build_dashes
-		puts "-" * 25
+		"-" * build_number_of_movies.length
 	end
 
   def build_list_of_movies
@@ -61,9 +66,10 @@ class LayoutBuilder
 	end
 
 	def build_layout
-		build_ratings_horizontally
-		# puts build_number_of_movies
-		build_dashes
+		build_ratings_vertically
+		puts build_dashes
+		puts build_number_of_movies
+		puts ""
 		build_list_of_movies
 	end
 end
