@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'imdb'
-require 'pry'
 
 class TextReader
   def read_from_file
