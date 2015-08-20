@@ -21,7 +21,7 @@ class Presenter
 
   def create_empty_lines
     i = 1
-    num = ((TermInfo.screen_size[0] - @slide_text[@slide_number].lines.count) / 2) - 2
+    num = ((TermInfo.screen_size[0] - @slide_text[@slide_number].lines.count) / 2)
 
       while i <= num  do
         puts""
@@ -34,7 +34,7 @@ class Presenter
     num = @slide_text[@slide_number].lines.count - 1
 
     while i <= num do
-      puts @slide_text[@slide_number].lines[i].center(TermInfo.screen_size[1])
+      puts @slide_text[@slide_number].lines[i].strip.center(TermInfo.screen_size[1])
       i = i + 1
     end
 
@@ -52,8 +52,8 @@ class Presenter
     sleep 1
 
     #length is supposed to count the number of items in the array
-    if @slide_number < @slide_text.count
-      @slide_number = @slide_number + 1
+    if @slide_number < @slide_text.count - 1
+      @slide_number += 1
     else
       return "The end"
     end
