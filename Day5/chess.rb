@@ -1,6 +1,11 @@
 require 'awesome_print'
 require 'pry'
 
+# class ChessValidator
+# 	def create_board
+# end
+# end
+
 class ChessBoard
 	def initialize(origin, destination)
 		@origin = origin
@@ -30,7 +35,7 @@ class ChessBoard
 	# end
 
 		if @board[@dest[0]][@dest[1]] == ""
-			Rook.new(@origin, @dest).check_move
+			Queen.new(@origin, @dest).check_move
 		else
 			puts "SPACE TAKEN"
 		end
@@ -42,6 +47,12 @@ class ChessPiece
 		# @board = board
 		@origin = origin
 		@dest = destination
+	end
+
+	def left_right
+		if (@origin[0] == @dest[0] && @origin[1] != @dest[1])||(@origin[0] != @dest[0] && @origin[1] == @dest[1])
+			return true
+		end
 	end
 end
 
@@ -57,13 +68,16 @@ end
 
 class Queen < ChessPiece
 	def check_move
-		if
+		if (left_right == true)||((@dest[0] - @origin[0]).abs / (@dest[1] - @origin[1]).abs == 1)
+			puts "LEGAL"
+		else
+			puts "ILLEGAL"
 		end
 	end
 end
 
 
-my_board = ChessBoard.new([0,0], [4,7])
+my_board = ChessBoard.new([4,4], [1,1])
 my_board.create_the_board
 space_free = my_board.check_the_space
 
