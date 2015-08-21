@@ -2,40 +2,71 @@ require 'awesome_print'
 require 'pry'
 
 class ChessBoard
-	def initialize
+	def initialize(origin, destination)
+		@origin = origin
+		@dest = destination
 	end
 
 	def create_the_board
-		@board = Array.new(8) { Array.new(8, 0) }
+		@board = Array.new(8) { Array.new(8, "") }
 		@board[0][0] = :bR
 		@board[7][0] = :wR
-		# ap @board[0, 0].to_s
+		@board
 	end
 
-	def check_the_space(x, y)
-		if @board[x][y] == nil
-			return true
+	def check_the_space
+		# #horizontal check
+
+		# horizontal_row = @board.map {|x,y| y[0]}
+		# ap horizontal_row
+
+		# #vertical check
+		# @board.map {|v| v[0]}
+	# 	@dest[1] - @origin[1].times do |i|
+	# 		if @board[@dest[0]][i] == ""
+	# 			puts "yo"
+	# 		end
+	# 	end
+	# end
+
+		if @board[@dest[0]][@dest[1]] == ""
+			Rook.new(@origin, @dest).check_move
 		else
-			return false
+			puts "SPACE TAKEN"
 		end
 	end
 end
 
-class Rook
-	def check_move(board, origin, destination)
-		originx = origin[0]
-		originy = origin[1]
-		destinationx = destination[0]
-		destinationy = destination[1]
+class ChessPiece
+	def initialize(origin, destination)
+		# @board = board
+		@origin = origin
+		@dest = destination
+	end
+end
 
-		if ((originx == destinationx) && (originy != destinationy)) || ((originx != destinationx) && (originy == destinationy))
-			puts "yo"
+class Rook < ChessPiece
+	def check_move
+		if (@origin[0] == @dest[0] && @origin[1] != @dest[1])||(@origin[0] != @dest[0] && @origin[1] == @dest[1])
+			puts "LEGAL MOVE"
 		else
-			puts "error"
+			puts "ILLEGAL MOVE"
 		end
 	end
 end
 
-my_board = ChessBoard.new.create_the_board
-# my_board.check_the_space(0, 0)
-Rook.new.check_move(my_board, [7,1], [3,7])
+class Queen < ChessPiece
+	def check_move
+		if
+		end
+	end
+end
+
+
+my_board = ChessBoard.new([0,0], [4,7])
+my_board.create_the_board
+space_free = my_board.check_the_space
+
+
+
+
