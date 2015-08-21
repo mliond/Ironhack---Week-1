@@ -1,5 +1,3 @@
-require "./MoveReader"
-
 class ChessValidator
 	def create_board(origin, destination)
 		my_board = ChessBoard.new(origin, destination)
@@ -8,5 +6,8 @@ class ChessValidator
 	end
 
 	def loop_this(commands)
-
+		commands.each do |x|
+			check_the_space(x)
+		end
+	end
 end

@@ -1,10 +1,6 @@
 require 'awesome_print'
 require 'pry'
 
-
-
-
-
 class ChessBoard
 	def initialize(origin, destination)
 		@origin = origin
