@@ -4,8 +4,11 @@ require 'awesome_print'
 require_relative "lib/MoveReader"
 require_relative "lib/ChessBoard"
 require_relative "lib/ChessValidator"
+require_relative "lib/OutputWriter"
 
 # ChessValidator.new.convert_coordinates("a8", "e8")
 board = ChessBoard.new.create_the_board
 coordinates = MoveReader.new.read_from_file
 ChessValidator.new(board, coordinates).loop
+
+# OutputWriter.new.write_output(result)

@@ -18,21 +18,16 @@ class ChessValidator
 	end
 
 	def which_figure?(origin, dest)
+		figure = @board[origin[0][0].to_i][origin[0][1].to_i][1]
 
-		#this is just to try the program:
-		Rook.new(origin, dest).check_move
-		ap @board
-		# something is wrong below. ideally reads second digit of the returned value and tests which
-		# chess piece it is:
-
-		# piece = @board[origin[0]][origin[1]]
-
-		# case piece
-		# 	when "R"
-		# 		Rook.new(@origin, @dest).check_move
-		# 	when "X"
-		# 		Queen.new(@origin, @dest).check_move
-		# end
+		case figure
+			when "R"
+				Rook.new(origin, dest).check_move
+			when "Q"
+				Queen.new(origin, dest).check_move
+			else
+				puts "undefined"
+		end
 	end
 
 	def is_the_way_free?

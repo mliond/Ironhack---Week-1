@@ -11,11 +11,17 @@ class ChessPiece
 		end
 	end
 
+	def diagonal
+		if ((@dest[0] - @origin[0]).abs / (@dest[1] - @origin[1]).abs == 1)
+			return true
+		end
+	end
+
 	def evaluate_test(result)
 		if result == true
-			puts "LEGAL"
+			puts "yo"
 		else
-			puts "ILLEGAL"
+			puts "no"
 		end
 	end
 end
@@ -25,7 +31,7 @@ class Rook < ChessPiece
 		if (left_right == true)
 			result = true
 		else
-			result false
+			result = false
 		end
 
 		evaluate_test(result)
@@ -34,10 +40,12 @@ end
 
 class Queen < ChessPiece
 	def check_move
-		if (left_right == true)||((@dest[0] - @origin[0]).abs / (@dest[1] - @origin[1]).abs == 1)
-			return true
+		if (left_right == true)||(diagonal == true)
+			result = true
 		else
-			return false
+			result = false
 		end
+
+		evaluate_test(result)
 	end
 end
